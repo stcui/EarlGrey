@@ -80,25 +80,33 @@ static NSString *const kDeleteKeyIdentifier = @"\b";
  */
 static NSString *const kReturnKeyIdentifier = @"\n";
 
+static NSBundle *LocalizationBunble = nil;
+
+#define L(x, v) [LocalizationBunble localizedStringForKey:(x) value:(v) table:@"Accessibility"]
+
+
 @implementation GREYKeyboard : NSObject
 
 + (void)load {
   @autoreleasepool {
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"UIKit" ofType:@"axbundle"];
+    LocalizationBunble = [NSBundle bundleWithPath:path];
+
     gTapKeyAction = [[GREYTapAction alloc] initWithType:kGREYTapTypeKBKey];
     NSObject *keyboardObject = [[NSObject alloc] init];
     // Note: more, numbers label must be after shift and SHIFT labels, because it is also used for
     // the key for switching between keyplanes.
     gShiftKeyLabels =
-        @[ @"shift", @"Shift", @"SHIFT", @"more, symbols", @"more, numbers", @"more", @"MORE" ];
+        @[L(@"shift.key", @"shift"), @"Shift", @"SHIFT", L(@"more.symbols.key",@"more, symbols"), L(@"more.numbers.key",@"more, numbers"), L(@"more.key",@"more"), @"MORE" ];
 
     gAlphabeticKeyplaneCharacters = [NSMutableCharacterSet uppercaseLetterCharacterSet];
     [gAlphabeticKeyplaneCharacters formUnionWithCharacterSet:
         [NSCharacterSet lowercaseLetterCharacterSet]];
 
     gModifierKeyIdentifierMapping = @{
-      kSpaceKeyIdentifier : @"space",
-      kDeleteKeyIdentifier : @"delete",
-      kReturnKeyIdentifier : @"return"
+      kSpaceKeyIdentifier : L(@"space.key", @"space"),
+      kDeleteKeyIdentifier : L(@"delete.key", @"delete"),
+      kReturnKeyIdentifier : L(@"return.key", @"return")
     };
 
     static void const *const kStateTrackerElementIDKey = &kStateTrackerElementIDKey;
@@ -164,6 +172,9 @@ static NSString *const kReturnKeyIdentifier = @"\n";
   }
 
   __block BOOL success = YES;
+  NSString *moreLettersCharacter = L(@"more.letters.key", @"more, letters");
+  NSString *moreNumbersCharacter = L(@"more.numbers.key", @"more, numbers");
+
   for (NSUInteger i = 0; ((i < string.length) && success); i++) {
     NSString *characterAsString = [NSString stringWithFormat:@"%C", [string characterAtIndex:i]];
     NSLog(@"Attempting to type key %@.", characterAsString);
@@ -176,9 +187,9 @@ static NSString *const kReturnKeyIdentifier = @"\n";
         GREYLogVerbose(@"Detected an alphabetic key.");
         // Switch to alphabetic keyplane if we are on numbers/symbols keyplane.
         if (![GREYKeyboard grey_isAlphabeticKeyplaneShown]) {
-          id moreLettersKey = [GREYKeyboard grey_findKeyForCharacter:@"more, letters"];
+          id moreLettersKey = [GREYKeyboard grey_findKeyForCharacter:moreLettersCharacter];
           if (!moreLettersKey) {
-            return [GREYKeyboard grey_setErrorForkeyNotFoundWithAccessibilityLabel:@"more, letters"
+            return [GREYKeyboard grey_setErrorForkeyNotFoundWithAccessibilityLabel:moreLettersCharacter
                                                                    forTypingString:string
                                                                              error:errorOrNil];
           }
@@ -194,9 +205,9 @@ static NSString *const kReturnKeyIdentifier = @"\n";
         GREYLogVerbose(@"Detected a non-alphabetic key.");
         // Switch to numbers/symbols keyplane if we are on alphabetic keyplane.
         if ([GREYKeyboard grey_isAlphabeticKeyplaneShown]) {
-          id moreNumbersKey = [GREYKeyboard grey_findKeyForCharacter:@"more, numbers"];
+          id moreNumbersKey = [GREYKeyboard grey_findKeyForCharacter:moreNumbersCharacter];
           if (!moreNumbersKey) {
-            return [GREYKeyboard grey_setErrorForkeyNotFoundWithAccessibilityLabel:@"more, numbers"
+            return [GREYKeyboard grey_setErrorForkeyNotFoundWithAccessibilityLabel:moreNumbersCharacter
                                                                    forTypingString:string
                                                                              error:errorOrNil];
           }
@@ -214,9 +225,9 @@ static NSString *const kReturnKeyIdentifier = @"\n";
         // If key is not on either number or symbols keyplane, it could be on alphabetic keyplane.
         // This is the case for @ _ - on UIKeyboardTypeEmailAddress on iPad.
         if (!key) {
-          id moreLettersKey = [GREYKeyboard grey_findKeyForCharacter:@"more, letters"];
+          id moreLettersKey = [GREYKeyboard grey_findKeyForCharacter:moreLettersCharacter];
           if (!moreLettersKey) {
-            return [GREYKeyboard grey_setErrorForkeyNotFoundWithAccessibilityLabel:@"more, letters"
+            return [GREYKeyboard grey_setErrorForkeyNotFoundWithAccessibilityLabel:moreLettersCharacter
                                                                    forTypingString:string
                                                                              error:errorOrNil];
           }

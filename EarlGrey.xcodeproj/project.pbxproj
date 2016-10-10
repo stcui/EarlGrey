@@ -220,6 +220,7 @@
 		61E4E0BE1D755A0D007F9EE6 /* GREYPinchAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYPinchAction.m; sourceTree = "<group>"; };
 		61FC0A051CD939C30081BDAA /* GREYAutomationSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYAutomationSetup.h; sourceTree = "<group>"; };
 		61FC0A061CD939C30081BDAA /* GREYAutomationSetup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYAutomationSetup.m; sourceTree = "<group>"; };
+		A0E5FD251DAB380500D4F3A2 /* UIKit.axbundle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UIKit.axbundle; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/AccessibilityBundles/UIKit.axbundle; sourceTree = "<absolute>"; };
 		FD06C66B1BECAD8B009032A5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		FD06C66C1BECAD8B009032A5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		FD06C66F1BECAD9B009032A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -764,6 +765,7 @@
 		FDE401021BE83859001C172E /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				A0E5FD251DAB380500D4F3A2 /* UIKit.axbundle */,
 				FD61605A1BF2C75200722593 /* fishhook */,
 			);
 			name = Dependencies;
@@ -887,7 +889,6 @@
 				597E02D91D55AD100052A8D1 /* GREYUIWindowProvider.h in Headers */,
 				597E02DA1D55AD100052A8D1 /* GREYRunLoopSpinner.h in Headers */,
 				FD1948261DA231ED00B9BA2D /* GREYStopwatch.h in Headers */,
-				FD1948281DA231ED00B9BA2D /* GREYTestCaseInvocation.h in Headers */,
 				6113A2ED1D7F72FA00443D9B /* GREYStringDescription.h in Headers */,
 				597E02DB1D55AD100052A8D1 /* GREYAppStateTracker.h in Headers */,
 				597E02DD1D55AD100052A8D1 /* GREYTimedIdlingResource.h in Headers */,
@@ -995,7 +996,6 @@
 				611BF16C1D4CD705001D9E46 /* GREYManagedObjectContextIdlingResource.m in Sources */,
 				FD1002271C5B46C200B2DB0A /* GREYSyntheticEvents.m in Sources */,
 				FD1002341C5B46C200B2DB0A /* GREYElementMatcherBlock.m in Sources */,
-				FD1948291DA231ED00B9BA2D /* GREYTestCaseInvocation.m in Sources */,
 				FD1001DC1C5B46C200B2DB0A /* NSRunLoop+GREYAdditions.m in Sources */,
 				611BF1681D4CD292001D9E46 /* GREYDispatchQueueTracker.m in Sources */,
 				61FC0A081CD939C30081BDAA /* GREYAutomationSetup.m in Sources */,
